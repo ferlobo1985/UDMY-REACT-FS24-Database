@@ -1,14 +1,23 @@
 import axios from 'axios';
+import { useEffect, useState } from 'react';
 
 const App = () => {
+  let [cars,setCars] = useState([]);
+
+  useEffect(()=>{
+    axios.get('/api/getcars')
+    .then(response =>{
+      setCars(response.data)
+    })
+  },[])
 
 
   const onCarSubmit = () => {
     axios.post('/api/addcar',{
-      brand:'Ford',
-      model:'Focus',
-      year:2000,
-      avail:true
+      brand: 'Ford',
+      model:'Taurus',
+      year: 2000,
+      avail:false  
     })
     .then( response => {
       console.log(response.data);
@@ -25,6 +34,10 @@ const App = () => {
         >
             Add car to DB
         </button>
+        <hr/>
+        { cars.map(car=>(
+          <div key={car._id}>{car.brand}</div>
+        ))}
       </div>      
     </>
   )

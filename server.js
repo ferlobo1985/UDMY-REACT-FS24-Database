@@ -36,7 +36,23 @@ app.post('/api/addcar',async(req,res)=>{
     } catch(err){
         console.log(err)
     }
+});
+
+
+app.get('/api/getcars',async(req,res)=>{
+    try{
+        // let doc = await Car.find({});
+        // let doc = await Car.find({brand:'Ford'});
+        // let doc = await Car.find({_id:'65397c30db3de906256bb6de'});
+        // let doc = await Car.findOne({_id:'65397c24db3de906256bb6dc'});
+        let doc = await Car.findById('65397baedb3de906256bb6da');
+        res.json([doc]);
+    } catch(err){
+        console.log(err)
+    }
 })
+
+
 
 
 const port = process.env.PORT || 3001;
