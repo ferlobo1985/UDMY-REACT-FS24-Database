@@ -5,11 +5,15 @@ const App = () => {
   let [cars,setCars] = useState([]);
 
   useEffect(()=>{
+   getCars();
+  },[]);
+
+  const getCars = () => {
     axios.get('/api/getcars')
     .then(response =>{
       setCars(response.data)
     })
-  },[])
+  }
 
 
   const onCarSubmit = () => {
@@ -22,6 +26,16 @@ const App = () => {
     .then( response => {
       console.log(response.data);
     })
+  }
+
+  const onCarRemove = () => {
+    axios.post('/api/removecar',{
+      brand:'Ford'
+    })
+    .then(response=>{
+      console.log(response.data)
+      getCars();
+    });
   }
 
 
@@ -38,6 +52,9 @@ const App = () => {
         { cars.map(car=>(
           <div key={car._id}>{car.brand}</div>
         ))}
+        <hr/>
+        <h2>Remove elements</h2>
+        <button onClick={()=> onCarRemove()}>Delete !!!</button>
       </div>      
     </>
   )

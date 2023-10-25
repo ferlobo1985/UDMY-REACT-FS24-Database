@@ -41,17 +41,27 @@ app.post('/api/addcar',async(req,res)=>{
 
 app.get('/api/getcars',async(req,res)=>{
     try{
-        // let doc = await Car.find({});
+        let doc = await Car.find({});
         // let doc = await Car.find({brand:'Ford'});
         // let doc = await Car.find({_id:'65397c30db3de906256bb6de'});
         // let doc = await Car.findOne({_id:'65397c24db3de906256bb6dc'});
-        let doc = await Car.findById('65397baedb3de906256bb6da');
-        res.json([doc]);
+        // let doc = await Car.findById('65397baedb3de906256bb6da');
+        res.json(doc);
     } catch(err){
         console.log(err)
     }
-})
+});
 
+
+app.post('/api/removecar', async(req,res)=>{
+    try{
+        const brand = req.body.brand;
+        let doc =  await Car.deleteMany({});
+        res.json(doc)
+    } catch(error){
+        console.log(error)
+    }
+})
 
 
 
